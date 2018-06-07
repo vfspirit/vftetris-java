@@ -158,26 +158,34 @@ public class Game extends JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        switch (e.getKeyCode()) {
-            case KeyEvent.VK_LEFT:
-                currentPiece.move(-1, board);
-                break;
-            case KeyEvent.VK_RIGHT:
-                currentPiece.move(1, board);
-                break;
-            case KeyEvent.VK_UP:
-                currentPiece.rotate();
-                break;
-            case KeyEvent.VK_DOWN:
-                while (!checkCollision()) {
-                    if (!currentPiece.fall()) {
-                        break;
+        if (paused) {
+            switch (e.getKeyCode()) {
+                case KeyEvent.VK_P:
+                    paused = !paused;
+                    break;
+            }
+        } else {
+            switch (e.getKeyCode()) {
+                case KeyEvent.VK_LEFT:
+                    currentPiece.move(-1, board);
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    currentPiece.move(1, board);
+                    break;
+                case KeyEvent.VK_UP:
+                    currentPiece.rotate();
+                    break;
+                case KeyEvent.VK_DOWN:
+                    while (!checkCollision()) {
+                        if (!currentPiece.fall()) {
+                            break;
+                        }
                     }
-                }
-                break;
-            case KeyEvent.VK_P:
-                paused = !paused;
-                break;
+                    break;
+                case KeyEvent.VK_P:
+                    paused = !paused;
+                    break;
+            }
         }
 
         repaint();
